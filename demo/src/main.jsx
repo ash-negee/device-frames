@@ -6,6 +6,10 @@ import "./styles.css";
 
 const colorOptions = ["black", "silver", "natural", "gold", "blue", "pink", "green", "white"];
 
+function getInitialValue(name, fallback) {
+  return new URLSearchParams(window.location.search).get(name) ?? fallback;
+}
+
 function DemoScreen({ device, orientation }) {
   const rows = useMemo(
     () => [
@@ -44,10 +48,10 @@ function DemoScreen({ device, orientation }) {
 }
 
 function App() {
-  const [deviceName, setDeviceName] = useState("iphone-16");
-  const [orientation, setOrientation] = useState("portrait");
-  const [color, setColor] = useState("natural");
-  const [zoom, setZoom] = useState(0.62);
+  const [deviceName, setDeviceName] = useState(getInitialValue("device", "iphone-16"));
+  const [orientation, setOrientation] = useState(getInitialValue("orientation", "portrait"));
+  const [color, setColor] = useState(getInitialValue("color", "natural"));
+  const [zoom, setZoom] = useState(Number(getInitialValue("zoom", "0.62")));
 
   const device = DEVICE_PRESETS.find((preset) => preset.name === deviceName) ?? DEVICE_PRESETS[0];
 

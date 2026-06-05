@@ -23,6 +23,7 @@
   ],
   "files": [
     "dist",
+    "docs/screenshots",
     "src/styles",
     "CHANGELOG.md",
     "LICENSE"

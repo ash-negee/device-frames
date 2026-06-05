@@ -1,17 +1,22 @@
 # react-device-bezels
 
-Pure SCSS React device bezels for iOS and Android phones and tablets.
+Pure SCSS React device bezels for iOS and Android phones, tablets, and foldables.
 
-The package exposes a typed React component and ships the frame styling as SCSS/CSS. Frames are built with CSS boxes, gradients, shadows, and custom properties. No image assets or SVG device shells are required.
+`react-device-bezels` renders realistic device shells around any React content. Use it for app previews, product pages, documentation, screenshots, portfolios, launch pages, or internal design tools.
 
-## Features
+![iPhone 16 preview](./docs/screenshots/iphone-16.png)
 
-- Typed React API
-- Pure SCSS/CSS device shells
+![Galaxy S25 Ultra landscape preview](./docs/screenshots/galaxy-s25-ultra-landscape.png)
+
+## Highlights
+
+- Pure SCSS/CSS bezels, no device image assets required
+- Works with JSX, screenshots, videos, canvases, and any React children
+- Safe-area-aware scroll container for Dynamic Island, notches, punch-hole cameras, and landscape cutouts
 - iOS and Android phones, tablets, and foldables
-- JSX, screenshots, videos, canvases, or any React children inside the screen
-- Safe-area-aware scroll container for notches, Dynamic Island, punch-hole cameras, and landscape cutouts
 - Device color, orientation, zoom, and custom screen dimensions
+- Typed React API with ESM, CJS, and TypeScript declarations
+- Compiled CSS and source SCSS exports
 
 ## Install
 
@@ -19,7 +24,7 @@ The package exposes a typed React component and ships the frame styling as SCSS/
 npm install react-device-bezels
 ```
 
-## Usage
+## Quick Start
 
 ```tsx
 import { DeviceFrame } from "react-device-bezels";
@@ -27,25 +32,10 @@ import "react-device-bezels/styles.css";
 
 export function Preview() {
   return (
-    <DeviceFrame device="iphone-15-pro" color="natural">
-      <img src="/screenshot.png" alt="App screenshot" />
-    </DeviceFrame>
-  );
-}
-```
-
-`children` can be any JSX, not only an image:
-
-```tsx
-import { DeviceFrame } from "react-device-bezels";
-import "react-device-bezels/styles.css";
-
-export function AppPreview() {
-  return (
-    <DeviceFrame device="iphone-16" color="blue">
-      <main className="app-preview">
-        <header>Today</header>
+    <DeviceFrame device="iphone-16" color="natural">
+      <main style={{ display: "grid", gap: 16 }}>
         <h1>Dashboard</h1>
+        <p>This is real JSX rendered inside the device screen.</p>
         <button type="button">Create report</button>
       </main>
     </DeviceFrame>
@@ -53,21 +43,50 @@ export function AppPreview() {
 }
 ```
 
-The frame only provides the device shell and screen clipping. Your app content, screenshot, canvas, video, or any other React children render inside `.df-device__screen`.
+## Screenshot Usage
 
-For full-bleed screenshots, pass the image as a child and make it fill the screen:
+For full-bleed screenshots, pass an image as the child and make it fill the screen.
 
 ```tsx
-<DeviceFrame device="pixel-9-pro" color="black">
-  <img
-    src="/screenshot.png"
-    alt="App screenshot"
-    style={{ display: "block", height: "100%", objectFit: "cover", width: "100%" }}
-  />
+import { DeviceFrame } from "react-device-bezels";
+import "react-device-bezels/styles.css";
+
+export function ScreenshotPreview() {
+  return (
+    <DeviceFrame device="pixel-9-pro" color="black">
+      <img
+        src="/screenshot.png"
+        alt="App screenshot"
+        style={{
+          display: "block",
+          height: "100%",
+          objectFit: "cover",
+          width: "100%",
+        }}
+      />
+    </DeviceFrame>
+  );
+}
+```
+
+## JSX Content
+
+Children render inside `.df-device__content`, a safe-area-aware scroll container. Content avoids the notch, island, punch-hole camera, and landscape cutouts automatically. Scrollbars are hidden by default while scrolling remains enabled.
+
+```tsx
+<DeviceFrame device="iphone-16-pro" color="natural">
+  {({ device, orientation }) => (
+    <section>
+      <p>{device.label}</p>
+      <p>{orientation}</p>
+    </section>
+  )}
 </DeviceFrame>
 ```
 
-## Props
+Use `screenClassName` or `screenStyle` for the full screen surface. Use `contentClassName` or `contentStyle` for the scrollable inner content.
+
+## API
 
 ```tsx
 type DeviceFrameProps = {
@@ -82,16 +101,30 @@ type DeviceFrameProps = {
   frameClassName?: string;
   screenClassName?: string;
   contentClassName?: string;
+  style?: React.CSSProperties;
   screenStyle?: React.CSSProperties;
   contentStyle?: React.CSSProperties;
-  style?: React.CSSProperties;
   children?: React.ReactNode | ((props: DeviceFrameRenderProps) => React.ReactNode);
 };
 ```
 
-`orientation="landscape"` and `landscape` both render the frame sideways. `width` and `height` override the preset screen size before frame chrome is added. `zoom` scales the frame layout when using numeric dimensions. `color` accepts preset names such as `black`, `silver`, `gold`, `natural`, `blue`, `pink`, `green`, `white`, `yellow`, `purple`, `cream`, and `gray`, or any CSS color value.
-
-Children render inside `.df-device__content`, a safe-area-aware scroll container. The package adds padding so content does not sit under the Dynamic Island, notch, punch-hole camera, or landscape cutout. Use `screenClassName`/`screenStyle` for the full screen background and `contentClassName`/`contentStyle` for the scrollable inner content. Scrollbars are hidden by default while scrolling remains enabled.
+| Prop | Default | Description |
+| --- | --- | --- |
+| `device` | `"iphone-15"` | Preset device name. |
+| `color` | Device default | Preset color name or any CSS color value. |
+| `orientation` | `"portrait"` | `"portrait"` or `"landscape"`. |
+| `landscape` | `false` | Convenience boolean for landscape orientation. |
+| `width` | Preset width | Custom screen width before bezel chrome. |
+| `height` | Preset height | Custom screen height before bezel chrome. |
+| `zoom` | `1` | Scales the rendered device. |
+| `className` | - | Class for the outer wrapper. |
+| `frameClassName` | - | Class for the hardware shell. |
+| `screenClassName` | - | Class for the clipped screen surface. |
+| `contentClassName` | - | Class for the safe, scrollable content layer. |
+| `style` | - | Inline styles and CSS variables for the outer wrapper. |
+| `screenStyle` | - | Inline styles for the screen surface. |
+| `contentStyle` | - | Inline styles for the scrollable content layer. |
+| `children` | - | React content or a render function. |
 
 ## Devices
 
@@ -100,7 +133,7 @@ Children render inside `.df-device__content`, a safe-area-aware scroll container
 ```tsx
 import { DEVICE_PRESETS } from "react-device-bezels";
 
-const deviceNames = DEVICE_PRESETS.map((device) => device.name);
+const devices = DEVICE_PRESETS.map((device) => device.name);
 ```
 
 The package currently includes 76 presets across these families:
@@ -112,45 +145,87 @@ The package currently includes 76 presets across these families:
 - OnePlus 13, 12, and Open
 - Xiaomi 15, 15 Ultra, and 14
 
-## Custom SCSS
+## Styling
 
-You can import the source SCSS if your app compiles Sass:
+Import compiled CSS:
+
+```tsx
+import "react-device-bezels/styles.css";
+```
+
+Or import source SCSS:
 
 ```scss
 @use "react-device-bezels/styles.scss";
 ```
 
-The outer element exposes custom properties for advanced styling:
+The outer element exposes CSS variables for advanced customization:
 
 ```tsx
 <DeviceFrame
-  device="pixel-tablet"
+  device="galaxy-s25-ultra"
   orientation="landscape"
-  color="#2f3945"
+  color="#1d2128"
   style={{
-    "--df-bezel": "26px",
-    "--df-frame-radius": "30px",
+    "--df-bezel": "12px",
+    "--df-frame-radius": "28px",
   } as React.CSSProperties}
 />
 ```
 
-## Build
+## Examples
+
+Portrait iPhone with JSX:
+
+```tsx
+<DeviceFrame device="iphone-16" color="natural" zoom={0.72}>
+  <YourApp />
+</DeviceFrame>
+```
+
+Landscape Android preview:
+
+```tsx
+<DeviceFrame device="galaxy-s25-ultra" orientation="landscape" color="black">
+  <video src="/demo.mp4" autoPlay muted loop />
+</DeviceFrame>
+```
+
+Custom dimensions:
+
+```tsx
+<DeviceFrame device="iphone-16" width={390} height={844} color="#d8d2c4">
+  <CanvasPreview />
+</DeviceFrame>
+```
+
+## Development
 
 ```sh
 npm install
+npm run dev
 npm run check
 ```
 
-`npm run check` typechecks, builds ESM/CJS/type declarations, compiles CSS, and runs an npm pack dry-run.
+`npm run check` typechecks the package, builds ESM/CJS/type declarations, compiles CSS, and runs an npm pack dry-run.
 
-## Publishing
+## Package Exports
 
-Before publishing, fill in `author`, `repository`, `homepage`, and `bugs` in `package.json`.
-
-```sh
-npm login
-npm publish --dry-run
-npm publish --access public
+```tsx
+import { DeviceFrame, DEVICE_PRESETS } from "react-device-bezels";
+import "react-device-bezels/styles.css";
 ```
 
-If npm blocks the unscoped package name at publish time, publish under a scope such as `@your-scope/react-device-bezels`.
+```scss
+@use "react-device-bezels/styles.scss";
+```
+
+## Notes
+
+- Frames are CSS approximations intended for previews and mockups, not exact CAD/device templates.
+- Screen sizes are logical CSS viewport dimensions, not physical hardware pixels.
+- Android viewport dimensions can vary by browser, display size, and user scaling settings.
+
+## License
+
+MIT
