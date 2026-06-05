@@ -1,8 +1,14 @@
 # react-device-bezels
 
-Pure SCSS React device bezels for iOS and Android phones, tablets, and foldables.
+[![npm version](https://img.shields.io/npm/v/react-device-bezels.svg)](https://www.npmjs.com/package/react-device-bezels)
+[![npm downloads](https://img.shields.io/npm/dm/react-device-bezels.svg)](https://www.npmjs.com/package/react-device-bezels)
+[![license](https://img.shields.io/npm/l/react-device-bezels.svg)](./LICENSE)
 
-`react-device-bezels` renders realistic device shells around any React content. Use it for app previews, product pages, documentation, screenshots, portfolios, launch pages, or internal design tools.
+React device mockups and pure CSS device frames for iPhone, iPad, Android, Pixel, Galaxy, tablets, and app screenshots.
+
+`react-device-bezels` renders realistic device shells around any React content. Use it for app previews, product pages, documentation, screenshots, portfolios, launch pages, or internal design tools. If you need a React device frameset, iPhone mockup, Android device frame, or screenshot wrapper, this package gives you a lightweight CSS-based option.
+
+[Live demo](https://ash-negee.github.io/device-frames/) | [npm package](https://www.npmjs.com/package/react-device-bezels) | [GitHub repository](https://github.com/ash-negee/device-frames)
 
 ![iPhone 16 preview](./docs/screenshots/iphone-16.png)
 
@@ -17,6 +23,15 @@ Pure SCSS React device bezels for iOS and Android phones, tablets, and foldables
 - Device color, orientation, zoom, and custom screen dimensions
 - Typed React API with ESM, CJS, and TypeScript declarations
 - Compiled CSS and source SCSS exports
+
+## Use Cases
+
+- Wrap app screenshots in iPhone, iPad, Pixel, and Galaxy frames
+- Render live React UI inside realistic device mockups
+- Build product landing pages, portfolios, app store previews, docs, and launch pages
+- Create responsive mobile previews without image-based device assets
+- Show portrait and landscape app states in one React component
+- Build screenshot galleries, product mockups, and mobile UI documentation
 
 ## Install
 
