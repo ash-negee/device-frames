@@ -1,0 +1,659 @@
+$df-color-presets: (
+  "black": #17181c,
+  "blue": #7ea8d8,
+  "cream": #f2eadf,
+  "gold": #f4d7a1,
+  "graphite": #3f4048,
+  "gray": #a5a8ad,
+  "green": #9fbf9a,
+  "natural": #d8d2c4,
+  "pink": #efb7bd,
+  "purple": #b8a9d9,
+  "silver": #e7e8e4,
+  "white": #f7f7f4,
+  "yellow": #f2dc84
+);
+
+.df-device {
+  --df-device-color: #17181c;
+  --df-device-height: 852px;
+  --df-device-outer-height: 878px;
+  --df-device-outer-width: 419px;
+  --df-device-scaled-height: 878px;
+  --df-device-scaled-width: 419px;
+  --df-device-width: 393px;
+  --df-zoom: 1;
+  --df-bezel: 14px;
+  --df-frame-radius: 58px;
+  --df-frame-shadow: 0 24px 70px rgb(15 18 28 / 24%), inset 0 0 0 1px rgb(255 255 255 / 28%);
+  --df-metal-highlight: rgb(255 255 255 / 42%);
+  --df-screen-radius: calc(var(--df-frame-radius) - 17px);
+  --df-button-thickness: 4px;
+  --df-power-button-length: 92px;
+  --df-power-button-offset: 170px;
+  --df-volume-button-length: 66px;
+  --df-volume-down-offset: 226px;
+  --df-volume-up-offset: 150px;
+  --df-safe-bottom: 18px;
+  --df-safe-left: 16px;
+  --df-safe-right: 16px;
+  --df-safe-top: 18px;
+
+  box-sizing: border-box;
+  display: inline-block;
+  height: var(--df-device-scaled-height);
+  position: relative;
+  vertical-align: top;
+  width: var(--df-device-scaled-width);
+}
+
+.df-device *,
+.df-device *::before,
+.df-device *::after {
+  box-sizing: border-box;
+}
+
+.df-device__hardware {
+  background:
+    linear-gradient(135deg, var(--df-metal-highlight), transparent 28%),
+    linear-gradient(315deg, rgb(0 0 0 / 22%), transparent 28%),
+    var(--df-device-color);
+  border-radius: var(--df-frame-radius);
+  box-shadow: var(--df-frame-shadow);
+  height: var(--df-device-outer-height);
+  isolation: isolate;
+  padding: var(--df-bezel);
+  position: relative;
+  transform: scale(var(--df-zoom));
+  transform-origin: left top;
+  width: var(--df-device-outer-width);
+}
+
+.df-device__hardware::before {
+  background: linear-gradient(90deg, rgb(255 255 255 / 42%), transparent 22%, transparent 78%, rgb(0 0 0 / 22%));
+  border-radius: inherit;
+  content: "";
+  inset: 2px;
+  opacity: 0.45;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.df-device__screen-ring {
+  background: #08090d;
+  border-radius: var(--df-screen-radius);
+  height: 100%;
+  overflow: hidden;
+  padding: var(--df-screen-gap, 0);
+  position: relative;
+  z-index: 2;
+}
+
+.df-device__screen {
+  background: #fff;
+  border-radius: calc(var(--df-screen-radius) - var(--df-screen-gap, 0px));
+  color: #111318;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.df-device__content {
+  height: 100%;
+  -ms-overflow-style: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding:
+    var(--df-safe-top)
+    var(--df-safe-right)
+    var(--df-safe-bottom)
+    var(--df-safe-left);
+  scrollbar-width: none;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.df-device__content::-webkit-scrollbar {
+  display: none;
+}
+
+.df-device__camera,
+.df-device__speaker,
+.df-device__button,
+.df-device__home {
+  position: absolute;
+  z-index: 3;
+}
+
+.df-device__button {
+  background: color-mix(in srgb, var(--df-device-color), #000 18%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 24%);
+}
+
+.df-device__button--action,
+.df-device__button--camera-control {
+  display: none;
+}
+
+.df-device__button--power {
+  border-radius: 0 4px 4px 0;
+  height: var(--df-power-button-length);
+  right: -3px;
+  top: var(--df-power-button-offset);
+  width: var(--df-button-thickness);
+}
+
+.df-device__button--volume-up,
+.df-device__button--volume-down {
+  border-radius: 4px 0 0 4px;
+  height: var(--df-volume-button-length);
+  left: -3px;
+  width: var(--df-button-thickness);
+}
+
+.df-device__button--volume-up {
+  top: var(--df-volume-up-offset);
+}
+
+.df-device__button--volume-down {
+  top: var(--df-volume-down-offset);
+}
+
+.df-device__speaker,
+.df-device__home {
+  display: none;
+}
+
+.df-device__camera {
+  background: #0b0d12;
+  border: 4px solid #161922;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 5%);
+  height: 18px;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: 18px;
+}
+
+.df-device--ios.df-device--phone {
+  --df-bezel: 13px;
+  --df-frame-radius: 60px;
+}
+
+.df-device--front-island {
+  --df-screen-gap: 0px;
+  --df-safe-top: 42px;
+}
+
+.df-device--front-island .df-device__hardware::after {
+  background: #0b0d12;
+  border-radius: 999px;
+  content: "";
+  height: 31px;
+  left: 50%;
+  position: absolute;
+  top: 24px;
+  transform: translateX(-50%);
+  width: 102px;
+  z-index: 4;
+}
+
+.df-device--front-island .df-device__camera {
+  background: #141821;
+  border: 0;
+  box-shadow: none;
+  height: 8px;
+  left: calc(50% + 31px);
+  opacity: 0.75;
+  top: 35px;
+  width: 8px;
+  z-index: 5;
+}
+
+.df-device--iphone-16-pro .df-device__hardware::after,
+.df-device--iphone-16-pro-max .df-device__hardware::after,
+.df-device--iphone-15-pro .df-device__hardware::after,
+.df-device--iphone-15-pro-max .df-device__hardware::after,
+.df-device--iphone-14-pro .df-device__hardware::after,
+.df-device--iphone-14-pro-max .df-device__hardware::after {
+  width: 108px;
+}
+
+.df-device--front-notch {
+  --df-screen-gap: 0px;
+  --df-safe-top: 40px;
+}
+
+.df-device--front-notch .df-device__hardware::after {
+  background: #08090d;
+  border-radius: 0 0 18px 18px;
+  content: "";
+  height: 33px;
+  left: 50%;
+  position: absolute;
+  top: var(--df-bezel);
+  transform: translateX(-50%);
+  width: 148px;
+  z-index: 4;
+}
+
+.df-device--front-notch .df-device__speaker {
+  background: rgb(255 255 255 / 24%);
+  border-radius: 999px;
+  display: block;
+  height: 4px;
+  left: 50%;
+  top: calc(var(--df-bezel) + 10px);
+  transform: translateX(-50%);
+  width: 42px;
+  z-index: 5;
+}
+
+.df-device--front-notch .df-device__camera {
+  background: #141821;
+  border: 0;
+  height: 8px;
+  left: calc(50% - 56px);
+  top: calc(var(--df-bezel) + 8px);
+  transform: none;
+  width: 8px;
+  z-index: 5;
+}
+
+.df-device--iphone-13 .df-device__hardware::after,
+.df-device--iphone-13-mini .df-device__hardware::after,
+.df-device--iphone-13-pro .df-device__hardware::after,
+.df-device--iphone-13-pro-max .df-device__hardware::after,
+.df-device--iphone-14 .df-device__hardware::after,
+.df-device--iphone-14-plus .df-device__hardware::after,
+.df-device--iphone-16e .df-device__hardware::after {
+  width: 132px;
+}
+
+.df-device--has-action-button .df-device__button--action {
+  border-radius: 4px 0 0 4px;
+  display: block;
+  height: 42px;
+  left: -3px;
+  top: 88px;
+  width: var(--df-button-thickness);
+}
+
+.df-device--has-camera-control .df-device__button--camera-control {
+  border-radius: 0 5px 5px 0;
+  display: block;
+  height: 74px;
+  right: -3px;
+  top: 330px;
+  width: var(--df-button-thickness);
+}
+
+.df-device--has-action-button .df-device__button--volume-up {
+  top: 148px;
+}
+
+.df-device--has-action-button .df-device__button--volume-down {
+  top: 222px;
+}
+
+.df-device--front-classic {
+  --df-bezel: 18px;
+  --df-frame-radius: 36px;
+  --df-power-button-offset: 86px;
+  --df-power-button-length: 50px;
+  --df-screen-radius: 2px;
+  --df-volume-down-offset: 166px;
+  --df-volume-up-offset: 108px;
+  --df-volume-button-length: 48px;
+  --df-safe-bottom: 12px;
+  --df-safe-top: 12px;
+}
+
+.df-device--front-classic .df-device__hardware {
+  background: color-mix(in srgb, var(--df-device-color), #ffffff 72%);
+  box-shadow:
+    0 20px 48px rgb(15 18 28 / 18%),
+    inset 0 0 0 2px color-mix(in srgb, var(--df-device-color), #ffffff 22%);
+  padding: 18px;
+}
+
+.df-device--front-classic .df-device__hardware::before {
+  display: none;
+}
+
+.df-device--front-classic .df-device__screen-ring {
+  background: transparent;
+  border-radius: 0;
+  height: calc(100% - 142px);
+  margin-block: 74px 68px;
+}
+
+.df-device--front-classic .df-device__screen {
+  border-radius: 2px;
+}
+
+.df-device--front-classic .df-device__speaker {
+  background: rgb(0 0 0 / 48%);
+  border-radius: 999px;
+  display: block;
+  height: 5px;
+  left: calc(50% + 20px);
+  top: 38px;
+  transform: translateX(-50%);
+  width: 52px;
+}
+
+.df-device--front-classic .df-device__camera {
+  background: #10141c;
+  border: 0;
+  height: 8px;
+  top: 37px;
+  transform: translateX(-48px);
+  width: 8px;
+}
+
+.df-device--front-classic .df-device__home {
+  background: transparent;
+  border: 2px solid rgb(0 0 0 / 18%);
+  border-radius: 999px;
+  bottom: 17px;
+  box-shadow: none;
+  display: block;
+  height: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 46px;
+}
+
+.df-device--ios.df-device--tablet {
+  --df-bezel: 32px;
+  --df-frame-radius: 36px;
+  --df-power-button-offset: 220px;
+  --df-power-button-length: 112px;
+  --df-screen-radius: 14px;
+  --df-volume-down-offset: 284px;
+  --df-volume-up-offset: 200px;
+  --df-volume-button-length: 74px;
+  --df-safe-bottom: 24px;
+  --df-safe-left: 24px;
+  --df-safe-right: 24px;
+  --df-safe-top: 24px;
+}
+
+.df-device--ios.df-device--tablet .df-device__camera {
+  height: 12px;
+  top: 14px;
+  width: 12px;
+}
+
+.df-device--ipad-mini {
+  --df-bezel: 28px;
+}
+
+.df-device--android.df-device--phone {
+  --df-bezel: 12px;
+  --df-frame-radius: 48px;
+  --df-safe-top: 26px;
+  --df-screen-radius: 38px;
+}
+
+.df-device--android .df-device__hardware {
+  background:
+    radial-gradient(circle at 28% 10%, rgb(255 255 255 / 22%), transparent 24%),
+    linear-gradient(135deg, color-mix(in srgb, var(--df-device-color), #fff 22%), var(--df-device-color) 48%, color-mix(in srgb, var(--df-device-color), #000 26%));
+}
+
+.df-device--android.df-device--phone .df-device__camera {
+  border-width: 3px;
+  height: 16px;
+  top: 22px;
+  width: 16px;
+}
+
+.df-device--front-punch .df-device__speaker {
+  background: rgb(0 0 0 / 34%);
+  border-radius: 999px;
+  display: block;
+  height: 3px;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  width: 48px;
+}
+
+.df-device--pixel-8 .df-device__camera {
+  left: 50%;
+}
+
+.df-device--galaxy-s24 {
+  --df-frame-radius: 42px;
+  --df-screen-radius: 32px;
+}
+
+.df-device--shape-squared {
+  --df-frame-radius: 30px;
+  --df-screen-radius: 22px;
+}
+
+.df-device--shape-fold {
+  --df-frame-radius: 28px;
+  --df-screen-radius: 20px;
+}
+
+.df-device--shape-fold .df-device__hardware::before {
+  background:
+    linear-gradient(90deg, transparent, rgb(0 0 0 / 18%) 50%, transparent),
+    linear-gradient(90deg, rgb(255 255 255 / 34%), transparent 18%, transparent 82%, rgb(0 0 0 / 22%));
+  left: 50%;
+  opacity: 0.42;
+  right: auto;
+  width: 2px;
+}
+
+.df-device--galaxy-s24 .df-device__camera {
+  left: 50%;
+}
+
+.df-device--android.df-device--tablet {
+  --df-bezel: 30px;
+  --df-frame-radius: 32px;
+  --df-power-button-offset: 220px;
+  --df-power-button-length: 112px;
+  --df-screen-radius: 18px;
+  --df-volume-down-offset: 284px;
+  --df-volume-up-offset: 200px;
+  --df-volume-button-length: 74px;
+  --df-safe-bottom: 24px;
+  --df-safe-left: 24px;
+  --df-safe-right: 24px;
+  --df-safe-top: 24px;
+}
+
+.df-device--android.df-device--tablet .df-device__camera {
+  height: 13px;
+  top: 14px;
+  width: 13px;
+}
+
+.df-device--has-landscape-tablet-camera.df-device--portrait .df-device__camera {
+  left: auto;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.df-device--has-landscape-tablet-camera.df-device--landscape .df-device__camera {
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+}
+
+.df-device--landscape {
+  --df-frame-radius: 44px;
+  --df-safe-bottom: 16px;
+  --df-safe-left: 18px;
+  --df-safe-right: 18px;
+  --df-safe-top: 16px;
+}
+
+.df-device--landscape .df-device__button--power {
+  border-radius: 4px 4px 0 0;
+  height: var(--df-button-thickness);
+  left: var(--df-power-button-offset);
+  right: auto;
+  top: -3px;
+  width: var(--df-power-button-length);
+}
+
+.df-device--landscape .df-device__button--volume-up,
+.df-device--landscape .df-device__button--volume-down {
+  border-radius: 0 0 4px 4px;
+  bottom: -3px;
+  height: var(--df-button-thickness);
+  top: auto;
+  width: var(--df-volume-button-length);
+}
+
+.df-device--landscape .df-device__button--volume-up {
+  left: var(--df-volume-up-offset);
+}
+
+.df-device--landscape .df-device__button--volume-down {
+  left: var(--df-volume-down-offset);
+}
+
+.df-device--landscape.df-device--has-action-button .df-device__button--action {
+  border-radius: 0 0 4px 4px;
+  bottom: -3px;
+  height: var(--df-button-thickness);
+  left: 88px;
+  top: auto;
+  width: 42px;
+}
+
+.df-device--landscape.df-device--has-camera-control .df-device__button--camera-control {
+  border-radius: 4px 4px 0 0;
+  height: var(--df-button-thickness);
+  left: 330px;
+  right: auto;
+  top: -3px;
+  width: 74px;
+}
+
+.df-device--landscape.df-device .df-device__camera {
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.df-device--landscape.df-device--tablet .df-device__camera {
+  left: 14px;
+}
+
+.df-device--landscape.df-device--has-landscape-tablet-camera .df-device__camera {
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+}
+
+.df-device--landscape.df-device--front-punch .df-device__speaker {
+  height: 48px;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+}
+
+.df-device--landscape.df-device--front-island .df-device__hardware::after {
+  height: 102px;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 31px;
+}
+
+.df-device--landscape.df-device--front-island {
+  --df-safe-left: 42px;
+  --df-safe-top: 16px;
+}
+
+.df-device--landscape.df-device--front-island .df-device__camera {
+  left: 35px;
+  top: calc(50% + 31px);
+  transform: none;
+}
+
+.df-device--landscape.df-device--front-notch .df-device__hardware::after {
+  border-radius: 0 18px 18px 0;
+  height: 148px;
+  left: var(--df-bezel);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 33px;
+}
+
+.df-device--landscape.df-device--front-notch {
+  --df-safe-left: 40px;
+  --df-safe-top: 16px;
+}
+
+.df-device--landscape.df-device--front-notch .df-device__speaker {
+  height: 42px;
+  left: calc(var(--df-bezel) + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+}
+
+.df-device--landscape.df-device--front-notch .df-device__camera {
+  left: calc(var(--df-bezel) + 8px);
+  top: calc(50% - 56px);
+  transform: none;
+}
+
+.df-device--landscape.df-device--front-classic .df-device__screen-ring {
+  height: 100%;
+  margin-block: 0;
+  margin-inline: 74px 68px;
+  width: calc(100% - 142px);
+}
+
+.df-device--landscape.df-device--front-classic .df-device__speaker {
+  left: 38px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 52px;
+}
+
+.df-device--landscape.df-device--front-classic .df-device__camera {
+  left: 37px;
+  top: 50%;
+  transform: translateY(-48px);
+}
+
+.df-device--landscape.df-device--front-classic .df-device__home {
+  bottom: auto;
+  left: auto;
+  right: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.df-device--landscape.df-device--iphone-16-pro .df-device__hardware::after,
+.df-device--landscape.df-device--iphone-16-pro-max .df-device__hardware::after,
+.df-device--landscape.df-device--iphone-15-pro .df-device__hardware::after,
+.df-device--landscape.df-device--iphone-15-pro-max .df-device__hardware::after,
+.df-device--landscape.df-device--iphone-14-pro .df-device__hardware::after,
+.df-device--landscape.df-device--iphone-14-pro-max .df-device__hardware::after {
+  height: 108px;
+}
+
+@each $name, $value in $df-color-presets {
+  .df-device--color-#{$name} {
+    --df-device-color: #{$value};
+  }
+}
