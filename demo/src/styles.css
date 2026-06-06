@@ -56,9 +56,16 @@ select {
   display: inline-flex;
   font-size: 13px;
   font-weight: 700;
+  gap: 7px;
   min-height: 34px;
   padding: 0 12px;
   text-decoration: none;
+}
+
+.project-links svg {
+  fill: currentColor;
+  height: 16px;
+  width: 16px;
 }
 
 .project-links a:focus-visible,
