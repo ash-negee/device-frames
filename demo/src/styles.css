@@ -38,7 +38,33 @@ select {
 .controls h1 {
   font-size: 24px;
   line-height: 1.1;
-  margin: 0 0 6px;
+  margin: 0;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  margin-top: -14px;
+}
+
+.project-links a {
+  align-items: center;
+  background: #f8f9fb;
+  border: 1px solid #cfd5df;
+  border-radius: 8px;
+  color: #1d2430;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 34px;
+  padding: 0 12px;
+  text-decoration: none;
+}
+
+.project-links a:focus-visible,
+.project-links a:hover {
+  border-color: #4b7bec;
+  color: #244fc8;
 }
 
 .controls label {

@@ -59,6 +59,14 @@ function App() {
     <div className="app-shell">
       <aside className="controls">
         <h1>Device Bezels</h1>
+        <nav className="project-links" aria-label="Project links">
+          <a href="https://github.com/ash-negee/device-frames" rel="noreferrer" target="_blank">
+            GitHub
+          </a>
+          <a href="https://www.npmjs.com/package/react-device-bezels" rel="noreferrer" target="_blank">
+            npm
+          </a>
+        </nav>
 
         <label>
           <span>Device</span>
