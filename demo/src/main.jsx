@@ -5,6 +5,7 @@ import "../../src/styles/device-frames.scss";
 import "./styles.css";
 
 const colorOptions = ["black", "silver", "natural", "gold", "blue", "pink", "green", "white"];
+const screenshotBase = `${import.meta.env.BASE_URL}screenshots`;
 
 function getInitialValue(name, fallback) {
   return new URLSearchParams(window.location.search).get(name) ?? fallback;
@@ -24,8 +25,12 @@ function DemoScreen({ device, orientation }) {
   return (
     <div className="demo-screen">
       <main>
-        <div className="demo-badge">{device.platform}</div>
+        <div className="demo-badge">React device frames</div>
         <h1>{device.label}</h1>
+        <p className="demo-lede">
+          Render scrollable JSX inside realistic CSS-only bezels for iPhone, iPad, Pixel, Galaxy,
+          Android phones, and tablets.
+        </p>
         <div className="demo-grid">
           {rows.map(([label, value]) => (
             <div key={label} className="demo-row">
@@ -34,11 +39,21 @@ function DemoScreen({ device, orientation }) {
             </div>
           ))}
         </div>
+        <pre className="demo-code">
+          <code>npm i react-device-bezels</code>
+        </pre>
         <div className="demo-list">
-          {Array.from({ length: 20 }, (_, index) => (
-            <article key={index} className="demo-list-item">
+          {[
+            "Safe screen padding keeps content away from notches, sensors, and home indicators.",
+            "Portrait and landscape modes adjust buttons, cameras, and screen geometry.",
+            "Custom colors and zoom controls make screenshots easy to compose.",
+            "Use it in docs, launch pages, portfolios, internal tools, or app store assets.",
+            "The frame is SCSS/CSS driven, so the package stays lightweight.",
+            "Children are regular React nodes, not a static screenshot-only image slot.",
+          ].map((item, index) => (
+            <article key={item} className="demo-list-item">
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>Scrollable JSX content stays inside the safe screen area.</p>
+              <p>{item}</p>
             </article>
           ))}
         </div>
@@ -59,6 +74,10 @@ function App() {
     <div className="app-shell">
       <aside className="controls">
         <h1>Device Bezels</h1>
+        <p className="controls-intro">
+          CSS-only iPhone, iPad, Android, Pixel, and Galaxy frames for React app previews,
+          screenshots, docs, and product pages.
+        </p>
         <nav className="project-links" aria-label="Project links">
           <a href="https://github.com/ash-negee/device-frames" rel="noreferrer" target="_blank">
             <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -73,6 +92,11 @@ function App() {
             npm
           </a>
         </nav>
+
+        <section className="package-card" aria-labelledby="install-title">
+          <h2 id="install-title">Install</h2>
+          <code>npm i react-device-bezels</code>
+        </section>
 
         <label>
           <span>Device</span>
@@ -128,22 +152,23 @@ function App() {
             value={zoom}
           />
         </label>
+
+        <section className="preview-assets" aria-labelledby="screenshots-title">
+          <h2 id="screenshots-title">Screenshots</h2>
+          <img
+            alt="React Device Bezels demo showing an iPhone 16 CSS device frame"
+            src={`${screenshotBase}/iphone-16.png`}
+          />
+          <img
+            alt="React Device Bezels demo showing a Galaxy S25 Ultra CSS device frame in landscape"
+            src={`${screenshotBase}/galaxy-s25-ultra-landscape.png`}
+          />
+        </section>
       </aside>
 
       <section className="preview">
         <DeviceFrame color={color} device={deviceName} orientation={orientation} zoom={zoom}>
-          {/* <DemoScreen device={device} orientation={orientation} /> */}
-          <div>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            <p>Hello world, this is a demo of the device bezels component. You can change the device, orientation, color, and zoom level using the controls on the left. The content inside the device bezel adjusts to the safe screen area. Try scrolling to see how it works.</p>
-            
-          </div>
+          <DemoScreen device={device} orientation={orientation} />
         </DeviceFrame>
       </section>
     </div>
